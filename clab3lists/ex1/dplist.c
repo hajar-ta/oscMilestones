@@ -101,34 +101,79 @@ dplist_t *dpl_insert_at_index(dplist_t *list, element_t element, int index) {
 dplist_t *dpl_remove_at_index(dplist_t *list, int index) {
 
     //TODO: add your code here
-    return NULL;
+    if (list == NULL) { return NULL;}
+    dplist_node_t *to_remove = dpl_get_reference_at_index(list, index);
+    if(to_remove == NULL) { return list; }
+    if(to_remove->prev !=NULL) {
+		to_remove -> prev->next = to_remove->next;
+		}
+    else {
+		list->head = to_remove->next; }
+    if (to_remove ->next != NULL) {
+		to_remove->next->prev = to_remove ->prev;
+		}
+
+   		free(to_remove);
+		return list;
 }
 
 int dpl_size(dplist_t *list) {
-
     //TODO: add your code here
-    return -1;
+    dplist_node_t  *current= list ->head;
+    int size = 0;
+    if(list == NULL) {
+	return -1;}
+    while (current != NULL) {
+	current = current->next;
+	size +=1; }
+	return size;
 }
 
 dplist_node_t *dpl_get_reference_at_index(dplist_t *list, int index) {
-    //int count = 0 ;
-    dplist_node_t *dummy = NULL;
+    int count = 0 ;
+    dplist_node_t *dummy = list ->head;
 
     //TODO: add your code here
-    return dummy;
+    if (list == NULL || list->head == NULL) {
+	return NULL;}
+
+    if (index <=0) {
+	return dummy;
+        }
+
+     while (count < index && dummy->next != NULL) {
+		dummy = dummy-> next;
+		count +=1; }
+		return dummy;
 }
+
 
 element_t dpl_get_element_at_index(dplist_t *list, int index) {
 
     //TODO: add your code here
-    return '\e';
+   if(list == NULL || list->head == NULL) {
+	return (element_t) 0; }
+
+   dplist_node_t *node = dpl_get_reference_at_index(list, index);
+   if(node == NULL) {
+	return (element_t) 0; }
+    return  node->element;
 }
 
 int dpl_get_index_of_element(dplist_t *list, element_t element) {
 
     //TODO: add your code here
-    return -1;
+    if(list == NULL || list->head == NULL) {
+		return -1; }
+
+    int index = 0;
+    dplist_node_t *current = list->head;
+    while(current != NULL) {
+		if(current ->element == element) {
+			return index; }
+                index +=1;
+		current = current->next;
+  	    }
+	return -1;
+
 }
-
-
-
