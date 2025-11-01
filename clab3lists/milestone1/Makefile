@@ -1,7 +1,7 @@
 
 ourtest: dplist.c ourtest.c
 	mkdir -p build
-	gcc dplist.c ourtest.c -o build/dplist_test2
+	gcc -g -Wall -Wextra dplist.c ourtest.c -o build/dplist_test2
 
 runourtest: ourtest
 	./build/dplist_test2
@@ -15,7 +15,7 @@ runrandomtest: randomtest
 
 all: dplist.c dplist_test.c
 	mkdir -p build
-	gcc dplist.c dplist_test.c -o build/dplist_test
+	gcc -g -Wall -Wextra dplist.c dplist_test.c -o build/dplist_test
 	
 run: all
 	./build/dplist_test
